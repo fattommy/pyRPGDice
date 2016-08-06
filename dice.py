@@ -188,7 +188,12 @@ while end==0:
                     if arr[0] >=2:
                     
                         if arr[1]>=1:
-                            crash1=0
+                            if arr[1]>= (arr(len)-2):
+                                crash1=0
+                            else:
+                                wsp(1)
+                                print "\t\tThe dice-number must at least be as big as the number of given modifiers"
+                                wsp(1)
                         else:
                             wsp(1)
                             print "\t\tThe dice-number must at least be 1"
