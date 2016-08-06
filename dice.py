@@ -105,8 +105,8 @@ while end==0:
         if session == 1:
             wsp(1)
             print "\tDo it like this: #min#max#mod#" 
-            print "\tSo e.g. #3#18#-2#5# means your dice shows the faces  between 3 and 18"
-            print "\tand the result of the random dice roll gets modified by -2 and 5, which is +3"
+            print "\tSo e.g. #3#18#-2#5# means your die shows the faces  between 3 and 18"
+            print "\tand the result of the random die roll gets modified by -2 and 5, which is +3"
         wsp(1)
         
         arr=[]
@@ -158,13 +158,15 @@ while end==0:
         print "session: ",session
         wsp(2)
         
-        print "\tGive me the dice-type, dice-number and the modifier"
+        print "\tGive me the die-type, dice-number and the modifier"
         if session == 1:
             wsp(1)
             print "\tDo it like this: #dt#dn#mod#" 
-            print "\tSo e.g. #6#3#2#-3# means you throw three six sided dice (each_dice=[1,6])"
-            print "\t (those dice are called d6 in English and W6 in german)"
-            print "\t and the result of the random dice roll gets modified by 2 and -3, which is -1"
+            print "\tSo e.g. #6#3#2#-3# means you throw three six sided dice (each_die=[1,6])"
+            print "\t  (those dice are called d6 in English and W6 in German)"
+            print "\t  and the result of the random dice roll gets modified by 2 and -3, which is -1"
+            print "\tNOTE: if you choose the modifier per each die mode later,"
+            print "\t  the superfluous modifiers get ignored!!!"
         wsp(2)
         
         
@@ -188,18 +190,13 @@ while end==0:
                     if arr[0] >=2:
                     
                         if arr[1]>=1:
-                            if arr[1]>= (len(arr)-2):
-                                crash1=0
-                            else:
-                                wsp(1)
-                                print "\t\tThe dice-number must at least be as big as the number of given modifiers"
-                                wsp(1)
+                            crash1=0
                         else:
                             wsp(1)
                             print "\t\tThe dice-number must at least be 1"
                             wsp(1)
                     else:
-                        print "\t\tThe dice-type must at least be 2 (coin)"
+                        print "\t\tThe die-type must at least be 2 (coin)"
                 else:
                     wsp(1)
                     print "\t\tSpecify at least 2 numbers, i.e. min and max (e.g. #min#max#)"
@@ -213,7 +210,7 @@ while end==0:
         
         while crash2 == 1:
             wsp(1)
-            inp = raw_input("\tAdd modifiers to sum of dice (s) or to each dice (d)  (s/d): ")
+            inp = raw_input("\tAdd modifiers to sum of dice (s) or to each die (d)  (s/d): ")
             
             if inp == 's':
                 crash2=0
@@ -223,7 +220,7 @@ while end==0:
                 crash2=1 
                 
         wsp(2)
-        print "\t\tRange per dice= [1,",dice,"]"
+        print "\t\tRange per die= [1,",dice,"]"
         wsp(1)
         print "\t\tNumber of dice= ",numDice
         
@@ -234,13 +231,13 @@ while end==0:
         for ind in range(0,numDice):
             ran= random.randint(1,dice)
             if inp == 's':
-                print "\t\t",ind,". dice = ",ran
+                print "\t\t",ind,". die = ",ran
             elif inp == 'd':
                 if (ind+2) < len(arr):
-                    print "\t\t",ind,". dice = ",ran," + ",arr[ind+2]," (",ind,".mod ) = ",(ran+arr[ind+2])
+                    print "\t\t",ind,". die = ",ran," + ",arr[ind+2]," (",ind,".mod ) = ",(ran+arr[ind+2])
                     ran = ran+arr[ind+2]
                 else:
-                   print "\t\t",ind,". dice = ",ran," +0 = ", ran 
+                   print "\t\t",ind,". die = ",ran," +0 = ", ran 
             sum=sum+ran
         
         wsp(2)
