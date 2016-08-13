@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 '''
 This program is called "pyRPGDice" 
 (sorry for the silly name XD ) and displays
@@ -45,16 +47,17 @@ def wsp(w):
             print
 
 def strSplt(str):
+    str+=" "
     x=[]
-    index=0
-        
-    while index < len(inp):
-        if inp[index] == '#':
+    index=0  
+    while index < (len(str)-1):
+        if str[index] == ' ':
             index+=1
         else: 
             curr= ''
-            while (inp[index] != '#') and (index < (len(inp)-1)):
-                curr = curr + inp[index]
+            
+            while (str[index] != ' ') and (index < (len(str)-1)):
+                curr = curr + str[index]
                 index+=1              
             x.append(int(curr))
             curr=''
@@ -65,7 +68,7 @@ def mods(x):
     modSum=0 
     if len(x)>=2:           
         for i in range(2,len(x)):
-            print "\t\t\t",i-2,". Modifier: ", x[i]
+            print "\t\t\t",i-1,". Modifier: ", x[i]
             modSum+=x[i]
         wsp(1)
         print "\t\tSum of Modifiers: ", modSum
@@ -104,8 +107,8 @@ while end==0:
         print "\tGive me the minimum-value, maximum-value and the modifier"
         if session == 1:
             wsp(1)
-            print "\tDo it like this: #min#max#mod#" 
-            print "\tSo e.g. #3#18#-2#5# means your die shows the faces  between 3 and 18"
+            print "\tDo it like this:  min max mod" 
+            print "\tSo e.g. 3 18 -2 5 means your die shows the faces  between 3 and 18"
             print "\tand the result of the random die roll gets modified by -2 and 5, which is +3"
         wsp(1)
         
@@ -115,7 +118,7 @@ while end==0:
         
         while crash1 == 1:
             crash1=1
-            inp = raw_input("\tDo it like this #min#max#mod# : ")  
+            inp = raw_input("\tDo it like this min max mod : ")  
                   
             try:
                 arr = strSplt(inp)
@@ -128,14 +131,14 @@ while end==0:
                     if arr[0] < arr[1]:
                         crash1=0
                     else:
-                        print "\t\t min (first value) must be smaller than max (second value)"
+                        print "\t\t min (first value) must be smaller than max (second value) (e.g.: 1 6 )"
                 else:
                     wsp(1)
-                    print "\t\tSpecify at least 2 numbers, i.e. min and max (e.g. #min#max#)"
+                    print "\t\tSpecify at least 2 numbers, i.e. min and max (e.g.: 3 18 )"
                     wsp(1)
             except ValueError:
                 wsp(1)
-                print "\t\tWrong input format: Don't forget the '#' at the end "
+                print "\t\t Ooops, something went horribly wrong"
                 wsp(1)  
             
          
@@ -143,10 +146,10 @@ while end==0:
         wsp(2)
         print "\t\tRange= [",mn,",",mx,"]"
         mod= mods(arr)
-        print "\t\tDice: ", ran
+        print "\t\tDie: ", ran
         wsp(2)
         ran = ran + mod
-        print "\t\tDice +/- sum of modifiers: ", ran     
+        print "\t\tDie +/- sum of modifiers: ", ran     
         wsp(2)
         
                 
@@ -161,8 +164,8 @@ while end==0:
         print "\tGive me the die-type, dice-number and the modifier"
         if session == 1:
             wsp(1)
-            print "\tDo it like this: #dt#dn#mod#" 
-            print "\tSo e.g. #6#3#2#-3# means you throw three six sided dice (each_die=[1,6])"
+            print "\tDo it like this: dt dn mod" 
+            print "\tSo e.g. 6 3 2 -3 means you throw three six sided dice (range_per_die=[1,6])"
             print "\t  (those dice are called d6 in English and W6 in German)"
             print "\t  and the result of the random dice roll gets modified by 2 and -3, which is -1"
             print "\tNOTE: if you choose the modifier per each die mode later,"
@@ -177,7 +180,7 @@ while end==0:
         
         while crash1 == 1:
             crash1=1
-            inp = raw_input("\tDo it like this #dt#dn#mod# : ") 
+            inp = raw_input("\tDo it like this dt dn mod : ") 
                   
             try:
                 arr = strSplt(inp)
@@ -199,11 +202,11 @@ while end==0:
                         print "\t\tThe die-type must at least be 2 (coin)"
                 else:
                     wsp(1)
-                    print "\t\tSpecify at least 2 numbers, i.e. min and max (e.g. #min#max#)"
+                    print "\t\tSpecify at least 2 numbers, i.e. dt and dn (e.g. 6 1)"
                     wsp(1)
             except ValueError:
                 wsp(1)
-                print "\t\tWrong input format: Don't forget the '#' at the end "
+                print "\t\t Ooops, something went horribly wrong"
                 wsp(1)
         
         crash2=1
@@ -231,13 +234,13 @@ while end==0:
         for ind in range(0,numDice):
             ran= random.randint(1,dice)
             if inp == 's':
-                print "\t\t",ind,". die = ",ran
+                print "\t\t",ind+1,". die = ",ran
             elif inp == 'd':
                 if (ind+2) < len(arr):
-                    print "\t\t",ind,". die = ",ran," + ",arr[ind+2]," (",ind,".mod ) = ",(ran+arr[ind+2])
+                    print "\t\t",ind+1,". die = ",ran," + ",arr[ind+2]," (",ind+1,".mod ) = ",(ran+arr[ind+2])
                     ran = ran+arr[ind+2]
                 else:
-                   print "\t\t",ind,". die = ",ran," +0 = ", ran 
+                   print "\t\t",ind+1,". die = ",ran," +0 = ", ran 
             sum=sum+ran
         
         wsp(2)
@@ -246,7 +249,7 @@ while end==0:
         wsp(2)
         
         if inp == 's':
-            print "\t\tSum of dice +/- Sum modifiers = ",sum
+            print "\t\tSum of dice +/- Sum of modifiers = ",sum
             wsp(2)
          
     wsp(1)
@@ -360,7 +363,6 @@ NO WARRANTY
 
 
 '''
-
 
 
 
