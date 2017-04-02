@@ -707,7 +707,145 @@ def evaluate(expr):
             if expr[index+1]=='a':
                 print 'reroll on all pairs'
 
+                index+=2
+        
+                counter=[]
+                results=[]
+                counted=[]
+                pairs=[]
+                pairsTmp=[]
+            
+                end=0
+                term=0
+                numStr=''
+            
+                for i in range(1,(diceType+1)):
+                    counter.append(i)
+                                                
+                wsp(2)
+            
+                for i in range(0,diceNum):
+                        tmp = random.randint(1,diceType)
+                        if i < len(modifier):
+                            print (i+1) , '. die: ' , tmp , " + " , modifier[i] , ' = ' , (tmp+modifier[i])
+                            results.append(tmp+modifier[i])
+                        else:
+                            print (i+1) , '. die: ' , tmp  
+                            results.append(tmp)
+                
+                wsp(1)
+                
+                #results = sorted(results)
+                
+                #test values
+                #results=[1,1,1,1]
 
+                for i in range(0,len(counter)):
+                    counted.append(0)
+            
+                for i in range(0,len(counter)):
+                    for j in range(0,len(results)):
+                        if counter[i] == results[j]:
+                            counted[i]+=1
+                        j+=1
+                    i+=1
+                
+                
+                for i in range(0,len(counter)):
+                    pairsTmp.append(0)
+                    pairs.append(0)
+                
+                
+                
+                for i in range(0,len(counter)):
+                    if counted[i]>=2:
+                        tmp=(counted[i]/2)
+                        pairs[i]=tmp
+                        pairsTmp[i]=tmp
+                        wsp(1)
+                        print 'Pairs of ',counter[i],'\'s = ' , tmp 
+                        
+                wsp(1)
+                
+                
+                '''
+                print 'Before rerolling'
+                print 'Results: ', results
+                print 'counter: ', counter
+                print 'counted: ', counted
+                print 'pairTmp: ', pairsTmp
+                print 'pairs  : ', pairs
+                wsp(1)
+                '''
+                
+                for i in range(0,len(counter)):
+                    j=1
+                    while pairsTmp[i]>0:
+                        pairsTmp[i]-=1
+                        tmp1 = random.randint(1,diceType)
+                        tmp2 = random.randint(1,diceType)
+                        print 'Reroll ', (pairsTmp[i]+1), '. pair of ', counter[i], '\'s'
+                        print j , '. die: ' , tmp1
+                        j+=1
+                        results.append(tmp1)
+                        print j , '. die: ' , tmp2
+                        j+=1
+                        results.append(tmp2)
+                        wsp(1)
+                        
+                        if tmp1==tmp2:
+                            for k in range(0,len(counter)):
+                                if counter[k]==tmp1:
+                                    counted[k]+=2
+                                    pairsTmp[k]+=1
+                                    pairs[k]+=1
+                        else:
+                            for k in range(0,len(counter)):
+                                if counter[k]==tmp1:
+                                    counted[k]+=1
+                                if counter[k]==tmp2:
+                                    counted[k]+=1
+                        
+                '''
+                print 'After Rerolling'
+                print 'Results: ', results
+                print 'counter: ', counter
+                print 'counted: ', counted
+                print 'pairTmp: ', pairsTmp
+                print 'pairs  : ', pairs
+                '''
+                
+                wsp(1)                
+                print 'Results        = ', results
+                wsp(1)
+                results = sorted(results)
+                print 'Results(sorted)= ', results
+                wsp(1)
+                
+                diceSum=0
+                
+                for i in range(0,len(results)):
+                    diceSum+=results[i]
+                
+                wsp(1)
+                print 'Total Dice Sum = ', diceSum
+                
+                
+                pairSum=0
+                
+                for i in range(0,len(counter)):
+                    pairSum+=pairs[i]
+                
+                
+                if pairSum>0:
+                    wsp(1)
+                    print 'Total Sum of Pairs ', pairSum, '(Not sum of dice!)'
+                
+                wsp(1)
+                
+                for i in range(0,len(counter)):
+                    if pairs[i]>0:
+                        print pairs[i], ' pairs of ', counter[i],'\'s = ', (pairs[i]*counter[i]*2)
 
 
 
@@ -720,7 +858,7 @@ def evaluate(expr):
             else:
                 print 'reroll on specific pairs'
                 
-                '''
+                
                 index+=1
             
                 end=0
@@ -730,6 +868,8 @@ def evaluate(expr):
                 counter=[]
                 results=[]
                 counted=[]
+                pairs=[]
+                pairsTmp=[]
             
                 while end==0:
                 
@@ -752,9 +892,7 @@ def evaluate(expr):
                             index+=1
                         counter.append(int(numStr))
                         numStr=''
-            
-                #print counter
-            
+                                
                 wsp(2)
             
                 for i in range(0,diceNum):
@@ -763,13 +901,16 @@ def evaluate(expr):
                             print (i+1) , '. die: ' , tmp , " + " , modifier[i] , ' = ' , (tmp+modifier[i])
                             results.append(tmp+modifier[i])
                         else:
-                            print (i+1) , '. die: ' , tmp , " + " , 0 , ' = ' , tmp  
+                            print (i+1) , '. die: ' , tmp  
                             results.append(tmp)
-                                       
-                results = sorted(results)
-            
-                wsp(2)
-            
+                
+                wsp(1)
+                
+                #results = sorted(results)
+                
+                #test values
+                #results=[1,1,1,1]
+
                 for i in range(0,len(counter)):
                     counted.append(0)
             
@@ -779,13 +920,103 @@ def evaluate(expr):
                             counted[i]+=1
                         j+=1
                     i+=1
-            
+                
+                
                 for i in range(0,len(counter)):
-                    if counted[i]>0:
-                        print 'Number of ',counter[i],'\'s = ' , counted[i] 
+                    pairsTmp.append(0)
+                    pairs.append(0)
+                
+                
+                
+                for i in range(0,len(counter)):
+                    if counted[i]>=2:
+                        tmp=(counted[i]/2)
+                        pairs[i]=tmp
+                        pairsTmp[i]=tmp
                         wsp(1)
+                        print 'Pairs of ',counter[i],'\'s = ' , tmp 
+                        
+                wsp(1)
+                
                 
                 '''
+                print 'Before rerolling'
+                print 'Results: ', results
+                print 'counter: ', counter
+                print 'counted: ', counted
+                print 'pairTmp: ', pairsTmp
+                print 'pairs  : ', pairs
+                wsp(1)
+                '''
+                
+                for i in range(0,len(counter)):
+                    j=1
+                    while pairsTmp[i]>0:
+                        pairsTmp[i]-=1
+                        tmp1 = random.randint(1,diceType)
+                        tmp2 = random.randint(1,diceType)
+                        print 'Reroll ', (pairsTmp[i]+1), '. pair of ', counter[i], '\'s'
+                        print j , '. die: ' , tmp1
+                        j+=1
+                        results.append(tmp1)
+                        print j , '. die: ' , tmp2
+                        j+=1
+                        results.append(tmp2)
+                        wsp(1)
+                        
+                        if tmp1==tmp2:
+                            for k in range(0,len(counter)):
+                                if counter[k]==tmp1:
+                                    counted[k]+=2
+                                    pairsTmp[k]+=1
+                                    pairs[k]+=1
+                        else:
+                            for k in range(0,len(counter)):
+                                if counter[k]==tmp1:
+                                    counted[k]+=1
+                                if counter[k]==tmp2:
+                                    counted[k]+=1
+                        
+                '''
+                print 'After Rerolling'
+                print 'Results: ', results
+                print 'counter: ', counter
+                print 'counted: ', counted
+                print 'pairTmp: ', pairsTmp
+                print 'pairs  : ', pairs
+                '''
+                
+                wsp(1)                
+                print 'Results        = ', results
+                wsp(1)
+                results = sorted(results)
+                print 'Results(sorted)= ', results
+                wsp(1)
+                
+                diceSum=0
+                
+                for i in range(0,len(results)):
+                    diceSum+=results[i]
+                
+                wsp(1)
+                print 'Total Dice Sum = ', diceSum
+                
+                
+                pairSum=0
+                
+                for i in range(0,len(counter)):
+                    pairSum+=pairs[i]
+                
+                
+                if pairSum>0:
+                    wsp(1)
+                    print 'Total Sum of Pairs ', pairSum, '(Not sum of dice!)'
+                
+                wsp(1)
+                
+                for i in range(0,len(counter)):
+                    if pairs[i]>0:
+                        print pairs[i], ' pairs of ', counter[i],'\'s = ', (pairs[i]*counter[i]*2)
                 
                 
         
