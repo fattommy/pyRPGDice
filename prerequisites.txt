@@ -1,0 +1,18 @@
+This Program/Script runs on Python 2.7.12.
+I have tested it on linux with Python 2.7.12 and
+on windows 10 with Python 2.7.13.
+
+pyRPGDice needs at least Python 2.7.12 and
+doesn't run on Python 3.x!!!
+
+So get the needed Python interpreter via your
+package managment system (Linux) 
+or via www.python.org , there you will find it in the Downloads section (Windows)!!!
+
+If you want to run pyRPGDice on Windows,
+use the "Windows Prompt" (German/Deutsch: "Windows Eingabeaufforderung")
+Change in the directory of the pyRPGDice.py file, by using
+"cd directoryname".
+If you are in the correct directory, start the program by
+typing ".\pyRPGDice.py parameter"
+Eg: ".\pyRPGDice.py 2d6+2d4"
